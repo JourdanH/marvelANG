@@ -8,9 +8,10 @@ import { MarvelService } from './marvel.service';
 })
 export class AppComponent {
   title = 'app';
-  marvelHero;
-
-
+  heroes;
+  showMore;
+  
+ 
  constructor(private marvelService: MarvelService){}
    
   
@@ -18,7 +19,7 @@ export class AppComponent {
       this.marvelService.getCharacters()
       .subscribe(
         marvelHero => {
-          this.marvelHero = marvelHero.data.results;
+          this.heroes = marvelHero.data.results;
         }
       )
     }
@@ -27,12 +28,25 @@ export class AppComponent {
       this.marvelService.getSearchHeroes($event)
       .subscribe(
         marvelHero => {
-          this.marvelHero = marvelHero.data.results;
+          this.heroes = marvelHero.data.results;
         }
       )
     }
+    
+   oneHero(data){
+      this.showMore=true;
+      this.marvelService.getOneHero(data)
+        .subscribe(
+         marvelHero => {
+           this.heroes = marvelHero.data.results;
+        })
+    }
 
-
+    goHome(){
+      this.getHeroes();
+        this.showMore=false;
+      
+    }
 
   ngOnInit(){
     this.getHeroes()

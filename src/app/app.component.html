@@ -1,10 +1,17 @@
 <app-search  #marvelSearch (sendSearch)="getSearchCharacter($event)"></app-search> 
-
-<div class= "col-md-3" *ngFor="let hero of marvelHero">
-   <div class="thumbnail">
-     <a href="#">{{hero.name}}</a>
-    <img src={{hero.thumbnail.path}}.{{hero.thumbnail.extension}}>
-  </div>   
+<div class="container-fluid">
+  <div class="row">
+    <div class= "col-sm-6 col-md-3 card"  *ngFor="let hero of heroes">
+      <div class="thumbnail">
+        <a href="#" (click)="oneHero(hero.id)">{{hero.name}}</a>
+        <img src={{hero.thumbnail.path}}.{{hero.thumbnail.extension}}>
+        <div *ngIf= "this.showMore==true" class="singleChar">
+        <div>
+          {{hero.description}}
+        </div>
+          <button class="btn btn-primary" (click)="goHome()" >Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
- 

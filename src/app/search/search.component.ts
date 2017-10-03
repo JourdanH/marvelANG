@@ -7,28 +7,24 @@ import { MarvelService } from '../marvel.service';
 })
 export class SearchComponent implements OnInit {
 
-@Output() 
-sendSearch= new EventEmitter<any>();
-  constructor(private marvelService: MarvelService){}
+  @Output() sendSearch= new EventEmitter<string>();
+    constructor(){}
 
- marvelHero; 
- thingISearched;
- searchCharacter;
+  marvelHero; 
+  thingISearched;
+  searchCharacter;
 
-  ngOnInit() {
+    ngOnInit() {
+    }
+
+  searchHero(){
+    if (this.searchCharacter !=""){
+      this.thingISearched =this.searchCharacter
+      this.sendSearch.emit(this.thingISearched)
+    } else {this.thingISearched ="%"
+      this.sendSearch.emit(this.thingISearched)
+      alert("Please enter a valid search")
+    }
+    this.searchCharacter=""
   }
-
-// getSearchCharacter(thingISearched){
-//       this.marvelService.getSearchHeroes()
-//       .subscribe(
-//         marvelHero => {
-//           this.marvelHero = marvelHero.data.results;
-//         }
-//       )
-//     }
-searchHero(){
-  this.thingISearched =this.searchCharacter
-  this.sendSearch.emit(this.thingISearched)
-  
-}
 }
